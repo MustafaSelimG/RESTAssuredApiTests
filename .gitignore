@@ -1,0 +1,20 @@
+.allure
+.DS_Store
+.mvn
+mvnw
+mvnw.cmd
+allure-results
+lib
+
+#IDEA Files
+.idea
+target
+*.iml
+*.ipr
+
+### Allure ###
+.allure
+allure/
+.allure/
+.allure-results/
+allure-results/

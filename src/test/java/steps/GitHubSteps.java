@@ -12,7 +12,7 @@ import org.testng.Assert;
 public class GitHubSteps {
     String baseURL = "https://api.github.com";
     String username = "MustafaSelimG";
-    String token = "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";
+    String token = "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";
     Response response;
 
     @Given("send get request for user")
@@ -113,7 +113,7 @@ public class GitHubSteps {
 
     @Given("send delete request for repository")
     public void sendDeleteRequestForRepository() {
-        String repoName = "bxVVP";
+        String repoName = "test";
         String requestURI = baseURL + "/repos/" + username + "/" + repoName;
 
         response = HttpHelper.deleteRequest(requestURI, token);

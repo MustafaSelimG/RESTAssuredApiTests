@@ -3,53 +3,44 @@ package Helpers;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
-import java.io.File;
-
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.lessThan;
 
 public class HttpHelper {
-    public static Response getRequest(String path) {
+    public static Response getRequest(String URI, String token) {
         return given().
+                headers("Authorization", "Bearer " + token).
                 contentType(ContentType.JSON).
-                get(path).
+                accept(ContentType.JSON).
+                when().
+                get(URI).
                 then().
+                time(lessThan(3000L)).
                 extract().response();
     }
 
-    public static Response postRequest(String path, String requestBody) {
+    public static Response postRequest(String URI, String token, String requestBody) {
         return given().
+                headers("Authorization", "Bearer " + token).
                 contentType(ContentType.JSON).
+                accept(ContentType.JSON).
                 body(requestBody).
                 when().
-                post(path).
+                post(URI).
                 then().
+                time(lessThan(3000L)).
                 extract().response();
     }
 
-    public static Response postRequestFile(String path, File requestBody) {
+    public static Response deleteRequest(String URI, String token) {
         return given().
+                headers("Authorization", "Bearer " + token).
                 contentType(ContentType.JSON).
-                body(requestBody).
-                post(path).
+                accept(ContentType.JSON).
+                when().
+                delete(URI).
                 then().
-                extract().response();
-    }
-
-    public static Response deleteRequest(String path,String qParam, String qValue) {
-        return given().
-                contentType(ContentType.JSON).
-                queryParam(qParam,qValue).
-                delete(path).
-                then().
-                extract().response();
-    }
-
-    public static Response getRequestWithParam(String path,String qParam, String qValue) {
-        return given().
-                contentType(ContentType.JSON).
-                queryParam(qParam,qValue).
-                get(path).
-                then().
+                time(lessThan(3000L)).
                 extract().response();
     }
 
